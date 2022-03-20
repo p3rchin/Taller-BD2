@@ -17,7 +17,7 @@ public class UsuarioDAO extends ManejoConexion {
         }
 	}
 	
-	 public boolean crearCliente(Usuario usuario) {
+	 public boolean crearUsuario(Usuario usuario) {
 	        try {
 
 	            String comandoSQL = "INSERT INTO USUARIO (ID_USUARIO, NOMBRE, APELLIDO, TELEFONO, CORREO, DIRECCION, SEXO, SALDO, ESTADO) VALUES (?,?,?,?,?,?,?,?,?)";
