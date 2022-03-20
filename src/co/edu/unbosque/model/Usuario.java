@@ -29,6 +29,17 @@ public class Usuario {
 		this.estado = estado;
 	}
 
+	public Usuario(String id_usuario, String nombre, String apellidos, String telefono, String correo, String direccion,
+			String sexo) {
+		this.id_usuario = id_usuario;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.telefono = telefono;
+		this.correo = correo;
+		this.direccion = direccion;
+		this.sexo = sexo;
+	}
+
 	/**
 	 * @return the id_usuario
 	 */

@@ -12,11 +12,14 @@ import co.edu.unbosque.controller.Controller;
 public class Vista extends JFrame {
 	
 	private final String COMANDO_CREAR_CLIENTE = "CREARCLIENTE";
+	private final String COMANDO_MOSTRAR_CLIENTE = "MOSTRARCLIENTE";
+
 
 	private JMenuBar menuBar;
 	private JMenu menu;
-	private JMenuItem menuItem1;
+	private JMenuItem menuItem1, menuItem2;
 	private PanelCrearUsuario panelCrearUsuario;
+	private PanelConsultaUsuarios panelConsultaUsuario;
 	private JPanel panelPrincipal;
 
 
@@ -35,12 +38,19 @@ public class Vista extends JFrame {
 		menuBar.add(menu);
 		menuItem1 = new JMenuItem("Crear usuario");
 		menuItem1.setActionCommand(COMANDO_CREAR_CLIENTE);
+		menuItem2 = new JMenuItem("Mostrar usuarios");
+		menuItem2.setActionCommand(COMANDO_MOSTRAR_CLIENTE);
 		menu.add(menuItem1);
+		menu.add(menuItem2);
 		
 		panelCrearUsuario = new PanelCrearUsuario();
 		panelCrearUsuario.setVisible(false);
 		panelPrincipal.add(panelCrearUsuario);
 		panelCrearUsuario.setBounds(0, 0, 640, 345);
+		panelConsultaUsuario = new PanelConsultaUsuarios(controller);
+		panelConsultaUsuario.setVisible(false);
+		panelPrincipal.add(panelConsultaUsuario);
+		panelConsultaUsuario.setBounds(0, 0, 640, 345);
 
 		setJMenuBar(menuBar);
 		add(panelPrincipal);
@@ -51,6 +61,7 @@ public class Vista extends JFrame {
 
 	public void asignarOyentes(Controller controller) {
 		menuItem1.addActionListener(controller);
+		menuItem2.addActionListener(controller);
 		panelCrearUsuario.getBtnCrear().addActionListener(controller);
 	}
 	
@@ -114,6 +125,27 @@ public class Vista extends JFrame {
 	 */
 	public void setPanelPrincipal(JPanel panelPrincipal) {
 		this.panelPrincipal = panelPrincipal;
+	}
+
+	/**
+	 * @return the panelConsultaUsuario
+	 */
+	public PanelConsultaUsuarios getPanelConsultaUsuario() {
+		return panelConsultaUsuario;
+	}
+
+	/**
+	 * @param panelConsultaUsuario the panelConsultaUsuario to set
+	 */
+	public void setPanelConsultaUsuario(PanelConsultaUsuarios panelConsultaUsuario) {
+		this.panelConsultaUsuario = panelConsultaUsuario;
+	}
+
+	/**
+	 * @return the cOMANDO_MOSTRAR_CLIENTE
+	 */
+	public String getCOMANDO_MOSTRAR_CLIENTE() {
+		return COMANDO_MOSTRAR_CLIENTE;
 	}
 
 }

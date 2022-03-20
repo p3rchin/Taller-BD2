@@ -2,12 +2,15 @@ package co.edu.unbosque.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import co.edu.unbosque.model.MercadoLibre;
 import co.edu.unbosque.model.Usuario;
 import co.edu.unbosque.view.Vista;
 
-public class Controller implements ActionListener {
+public class Controller implements ActionListener, KeyListener {
 
 	private Vista vista;
 	private MercadoLibre mercado;
@@ -23,9 +26,14 @@ public class Controller implements ActionListener {
 
 		if (comando.equals(vista.getCOMANDO_CREAR_CLIENTE())) {
 			vista.getPanelCrearUsuario().setVisible(true);
+			vista.getPanelConsultaUsuario().setVisible(false);
+
 		}
 		if (comando.equals(vista.getPanelCrearUsuario().getCOMANDO_CREAR())) {
 			crearUsuario();
+		}
+		if (comando.equals(vista.getCOMANDO_MOSTRAR_CLIENTE())) {
+			mostrarUsuarios();
 		}
 	}
 
@@ -41,6 +49,38 @@ public class Controller implements ActionListener {
 			}
 		} else {
 			vista.mostrarMensajeAdvertencia(entradas[1]);
+		}
+
+	}
+
+	public void mostrarUsuarios() {
+		ArrayList<Usuario> listaUsuarios = mercado.getUsuario().consultarUsuarios();
+		String[][] infoUsuarios = mercado.getUsuario().mostarInfoUsuarios(listaUsuarios);
+		vista.getPanelConsultaUsuario().getPanelTablas().limpiarPanel();
+		vista.getPanelConsultaUsuario().getPanelTablas().mostrarTablaClientes(infoUsuarios);
+		vista.getPanelCrearUsuario().setVisible(false);
+		vista.getPanelConsultaUsuario().setVisible(true);
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+
+		if (!vista.getPanelConsultaUsuario().getTxtNombre().getText().equals("")) {
+			ArrayList<Usuario> listaUsuarios = mercado.getUsuario()
+					.consultarUsuarios(vista.getPanelConsultaUsuario().getTxtNombre().getText());
+			String[][] infoUsuarios = mercado.getUsuario().mostarInfoUsuarios(listaUsuarios);
+			vista.getPanelConsultaUsuario().getPanelTablas().limpiarPanel();
+			vista.getPanelConsultaUsuario().getPanelTablas().mostrarTablaClientes(infoUsuarios);
 		}
 
 	}
