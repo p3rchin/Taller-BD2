@@ -13,11 +13,13 @@ public class Vista extends JFrame {
 	
 	private final String COMANDO_CREAR_CLIENTE = "CREARCLIENTE";
 	private final String COMANDO_MOSTRAR_CLIENTE = "MOSTRARCLIENTE";
+	private final String COMANDO_PROCESO = "PROCESO";
+
 
 
 	private JMenuBar menuBar;
 	private JMenu menu;
-	private JMenuItem menuItem1, menuItem2;
+	private JMenuItem menuItem1, menuItem2, menuItem3;
 	private PanelCrearUsuario panelCrearUsuario;
 	private PanelConsultaUsuarios panelConsultaUsuario;
 	private JPanel panelPrincipal;
@@ -40,8 +42,12 @@ public class Vista extends JFrame {
 		menuItem1.setActionCommand(COMANDO_CREAR_CLIENTE);
 		menuItem2 = new JMenuItem("Mostrar usuarios");
 		menuItem2.setActionCommand(COMANDO_MOSTRAR_CLIENTE);
+		menuItem3 = new JMenuItem("Proceso almacenado");
+		menuItem3.setActionCommand(COMANDO_PROCESO);
 		menu.add(menuItem1);
 		menu.add(menuItem2);
+		menu.add(menuItem3);
+
 		
 		panelCrearUsuario = new PanelCrearUsuario();
 		panelCrearUsuario.setVisible(false);
@@ -62,6 +68,7 @@ public class Vista extends JFrame {
 	public void asignarOyentes(Controller controller) {
 		menuItem1.addActionListener(controller);
 		menuItem2.addActionListener(controller);
+		menuItem3.addActionListener(controller);
 		panelCrearUsuario.getBtnCrear().addActionListener(controller);
 	}
 	
@@ -90,6 +97,16 @@ public class Vista extends JFrame {
 	 */
 	public void mostrarMensajeError(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public String pedirDato(String mensaje) {
+		String n = JOptionPane.showInputDialog(mensaje);
+		if (n == null) {
+			n = "Accion Cancelada";
+		} else if ("".equals(n)) {
+			n = "Por favor digite un valor";
+		}
+		return n;
 	}
 
 	/**
@@ -147,5 +164,14 @@ public class Vista extends JFrame {
 	public String getCOMANDO_MOSTRAR_CLIENTE() {
 		return COMANDO_MOSTRAR_CLIENTE;
 	}
+
+	/**
+	 * @return the cOMANDO_PROCESO
+	 */
+	public String getCOMANDO_PROCESO() {
+		return COMANDO_PROCESO;
+	}
+	
+	
 
 }

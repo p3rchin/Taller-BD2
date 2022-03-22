@@ -35,6 +35,12 @@ public class Controller implements ActionListener, KeyListener {
 		if (comando.equals(vista.getCOMANDO_MOSTRAR_CLIENTE())) {
 			mostrarUsuarios();
 		}
+		
+		if (comando.equals(vista.getCOMANDO_PROCESO())) {
+			String idUsuario = vista.pedirDato("Ingrese el id del usuario");
+			mercado.getUsuario().cambiarSaldo(idUsuario);
+			vista.mostrarMensajeInformacion("Saldo cambiado exitosamente");
+		}
 	}
 
 	public void crearUsuario() {
@@ -76,6 +82,12 @@ public class Controller implements ActionListener, KeyListener {
 	public void keyTyped(KeyEvent arg0) {
 
 		if (!vista.getPanelConsultaUsuario().getTxtNombre().getText().equals("")) {
+			ArrayList<Usuario> listaUsuarios = mercado.getUsuario()
+					.consultarUsuarios(vista.getPanelConsultaUsuario().getTxtNombre().getText());
+			String[][] infoUsuarios = mercado.getUsuario().mostarInfoUsuarios(listaUsuarios);
+			vista.getPanelConsultaUsuario().getPanelTablas().limpiarPanel();
+			vista.getPanelConsultaUsuario().getPanelTablas().mostrarTablaClientes(infoUsuarios);
+		}else if (vista.getPanelConsultaUsuario().getTxtNombre().getText().equals("")) {
 			ArrayList<Usuario> listaUsuarios = mercado.getUsuario()
 					.consultarUsuarios(vista.getPanelConsultaUsuario().getTxtNombre().getText());
 			String[][] infoUsuarios = mercado.getUsuario().mostarInfoUsuarios(listaUsuarios);

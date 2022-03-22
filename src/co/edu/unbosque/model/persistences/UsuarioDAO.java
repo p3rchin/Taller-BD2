@@ -1,5 +1,6 @@
 package co.edu.unbosque.model.persistences;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,6 +94,23 @@ public class UsuarioDAO extends ManejoConexion {
 			return null;
 		}
 		return listaUsuario;
+	}
+	
+	public void cambiarSaldo(String idUsuario) {
+		try {
+
+            if (!conexion.isClosed()) {
+                //llamado al procedimiento almacenado pa_cambiarPuntos
+                CallableStatement c=conexion.prepareCall("{call cambiarSaldo(?)}"); 
+                c.setString(1, idUsuario);
+                c.execute(); 
+            } else {
+                System.out.print("error en llamado");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
 	}
 
 	public String[][] mostarInfoUsuarios(ArrayList<Usuario> listaUsuarios) {
