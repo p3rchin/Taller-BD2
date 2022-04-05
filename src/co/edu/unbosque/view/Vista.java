@@ -13,13 +13,15 @@ public class Vista extends JFrame {
 	
 	private final String COMANDO_CREAR_CLIENTE = "CREARCLIENTE";
 	private final String COMANDO_MOSTRAR_CLIENTE = "MOSTRARCLIENTE";
+	private final String COMANDO_INSERTARDAWH = "INSERTARDWH";
+
 	private final String COMANDO_PROCESO = "PROCESO";
 
 
 
 	private JMenuBar menuBar;
 	private JMenu menu;
-	private JMenuItem menuItem1, menuItem2, menuItem3;
+	private JMenuItem menuItem1, menuItem2, menuItem3, menuItem4;
 	private PanelCrearUsuario panelCrearUsuario;
 	private PanelConsultaUsuarios panelConsultaUsuario;
 	private JPanel panelPrincipal;
@@ -44,9 +46,12 @@ public class Vista extends JFrame {
 		menuItem2.setActionCommand(COMANDO_MOSTRAR_CLIENTE);
 		menuItem3 = new JMenuItem("Proceso almacenado");
 		menuItem3.setActionCommand(COMANDO_PROCESO);
+		menuItem3 = new JMenuItem("Insertar en DWH");
+		menuItem3.setActionCommand(COMANDO_INSERTARDAWH);
 		menu.add(menuItem1);
 		menu.add(menuItem2);
 		menu.add(menuItem3);
+		menu.add(menuItem4);
 
 		
 		panelCrearUsuario = new PanelCrearUsuario();
@@ -69,6 +74,7 @@ public class Vista extends JFrame {
 		menuItem1.addActionListener(controller);
 		menuItem2.addActionListener(controller);
 		menuItem3.addActionListener(controller);
+		menuItem4.addActionListener(controller);
 		panelCrearUsuario.getBtnCrear().addActionListener(controller);
 	}
 	
@@ -170,6 +176,13 @@ public class Vista extends JFrame {
 	 */
 	public String getCOMANDO_PROCESO() {
 		return COMANDO_PROCESO;
+	}
+
+	/**
+	 * @return the cOMANDO_INSERTARDAWH
+	 */
+	public String getCOMANDO_INSERTARDAWH() {
+		return COMANDO_INSERTARDAWH;
 	}
 	
 	

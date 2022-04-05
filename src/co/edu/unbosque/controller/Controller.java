@@ -41,6 +41,10 @@ public class Controller implements ActionListener, KeyListener {
 			mercado.getUsuario().cambiarSaldo(idUsuario);
 			vista.mostrarMensajeInformacion("Saldo cambiado exitosamente");
 		}
+		
+		if (comando.equals(vista.getCOMANDO_INSERTARDAWH())) {
+			
+		}
 	}
 
 	public void crearUsuario() {
