@@ -46,8 +46,8 @@ public class Vista extends JFrame {
 		menuItem2.setActionCommand(COMANDO_MOSTRAR_CLIENTE);
 		menuItem3 = new JMenuItem("Proceso almacenado");
 		menuItem3.setActionCommand(COMANDO_PROCESO);
-		menuItem3 = new JMenuItem("Insertar en DWH");
-		menuItem3.setActionCommand(COMANDO_INSERTARDAWH);
+		menuItem4 = new JMenuItem("Insertar en DWH");
+		menuItem4.setActionCommand(COMANDO_INSERTARDAWH);
 		menu.add(menuItem1);
 		menu.add(menuItem2);
 		menu.add(menuItem3);

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import co.edu.unbosque.model.MercadoLibre;
 import co.edu.unbosque.model.Usuario;
+import co.edu.unbosque.model.VentaMetas;
 import co.edu.unbosque.view.Vista;
 
 public class Controller implements ActionListener, KeyListener {
@@ -43,7 +44,10 @@ public class Controller implements ActionListener, KeyListener {
 		}
 		
 		if (comando.equals(vista.getCOMANDO_INSERTARDAWH())) {
-			
+			ArrayList<VentaMetas> ventas = mercado.getVentas().tomarDatos();
+			if(mercado.getVentas().insertarDWH(ventas)) {
+				vista.mostrarMensajeInformacion("Se insertado en el DWH");
+			}
 		}
 	}
 

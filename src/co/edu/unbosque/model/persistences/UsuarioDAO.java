@@ -10,11 +10,14 @@ import java.util.logging.Logger;
 
 import co.edu.unbosque.model.Usuario;
 
-public class UsuarioDAO extends ManejoConexion {
-
+public class UsuarioDAO{
+	
+	private ManejoConexion manejoConexion;
+	
 	public UsuarioDAO() {
+		manejoConexion = new ManejoConexion();
 		try {
-			establecerConexion();
+			manejoConexion.establecerConexion();
 		} catch (SQLException e) {
 			Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
 		}
@@ -24,9 +27,9 @@ public class UsuarioDAO extends ManejoConexion {
 		try {
 
 			String comandoSQL = "INSERT INTO USUARIO (ID_USUARIO, NOMBRE, APELLIDO, TELEFONO, CORREO, DIRECCION, SEXO, SALDO, ESTADO) VALUES (?,?,?,?,?,?,?,?,?)";
-			if (!conexion.isClosed()) {
+			if (!manejoConexion.getConexion().isClosed()) {
 
-				PreparedStatement ps = conexion.prepareStatement(comandoSQL);
+				PreparedStatement ps = manejoConexion.getConexion().prepareStatement(comandoSQL);
 				ps.setString(1, usuario.getId_usuario());
 				ps.setString(2, usuario.getNombre());
 				ps.setString(3, usuario.getApellidos());
@@ -54,7 +57,7 @@ public class UsuarioDAO extends ManejoConexion {
 		try {
 
 			String comandoSQL = "SELECT NOMBRE, APELLIDO, CORREO, ID_USUARIO, DIRECCION, TELEFONO, SEXO FROM USUARIO WHERE ESTADO = 'A'";
-			PreparedStatement consulta = conexion.prepareStatement(comandoSQL);
+			PreparedStatement consulta = manejoConexion.getConexion().prepareStatement(comandoSQL);
 			ResultSet res = consulta.executeQuery();
 			while (res.next()) {
 				Usuario usuario = new Usuario(res.getString("id_usuario"), res.getString("nombre"),
@@ -78,7 +81,7 @@ public class UsuarioDAO extends ManejoConexion {
 
 			String comandoSQL = "SELECT NOMBRE, APELLIDO, CORREO, ID_USUARIO, DIRECCION, TELEFONO, SEXO FROM USUARIO WHERE NOMBRE LIKE '%"
 					+ nombre + "%' and ESTADO = 'A'";
-			PreparedStatement consulta = conexion.prepareStatement(comandoSQL);
+			PreparedStatement consulta = manejoConexion.getConexion().prepareStatement(comandoSQL);
 			ResultSet res = consulta.executeQuery();
 			while (res.next()) {
 				Usuario usuario = new Usuario(res.getString("id_usuario"), res.getString("nombre"),
@@ -99,9 +102,9 @@ public class UsuarioDAO extends ManejoConexion {
 	public void cambiarSaldo(String idUsuario) {
 		try {
 
-            if (!conexion.isClosed()) {
+            if (!manejoConexion.getConexion().isClosed()) {
                 //llamado al procedimiento almacenado pa_cambiarPuntos
-                CallableStatement c=conexion.prepareCall("{call cambiarSaldo(?)}"); 
+                CallableStatement c=manejoConexion.getConexion().prepareCall("{call cambiarSaldo(?)}"); 
                 c.setString(1, idUsuario);
                 c.execute(); 
             } else {
